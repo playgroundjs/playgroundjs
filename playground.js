@@ -1029,6 +1029,8 @@ PLAYGROUND.Application = function(args) {
       app.setState(PLAYGROUND.DefaultState);
 
       app.emitLocalEvent("ready");
+      app.handleResize();
+      
 
     });
 
@@ -3049,12 +3051,14 @@ PLAYGROUND.LoadingScreen = {
 
     if (this.locked) {
 
-      if (this.animation.finished) this.locked = false;
+      if (this.animation.finished) {
+        this.locked = false;
+        this.wrapper.parentNode.removeChild(this.wrapper);
+      }
 
     } else {
 
       this.current = this.current + Math.abs(this.app.loader.progress - this.current) * delta;
-
     }
 
   },
